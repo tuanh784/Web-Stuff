@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p>Count numbers: <output id="result"></output></p>
+<button onclick="timedCount()">Start Worker</button> 
+
+<p id="bar"></p>
+<p id="car"></p>
+<script>
+var i = 0;
+var first = new Date();
+var second = new Date();
+document.getElementById("bar").innerHTML = first.getMilliseconds();
+document.getElementById("car").innerHTML = second.getMilliseconds();
+function timedCount() {
+    i = i + 1;
+    document.getElementById("result").innerHTML = i;
+}
+
+
+
+timedCount(); 
+</script>
+
+</body>
+</html>

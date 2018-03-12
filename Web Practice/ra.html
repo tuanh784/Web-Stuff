@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p id="te">Counting with a local variable.</p>
+
+
+<script>
+var g = (function (name) {
+  var text = 'Hello ' + name; // Local variable
+  return function() { return function(){console.log(text);}};
+
+});
+var say2 = g("Bob");
+say2()();
+document.getElementById("te").innerHTML = g;
+
+</script>
+
+</body>
+</html>

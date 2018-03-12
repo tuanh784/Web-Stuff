@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+
+<p id="list"></p>
+<div id='info'></div>
+<script>
+initList();
+function initList(){
+var xmlhttp, xmlDoc, selectlist, x;
+xmlhttp = new XMLHttpRequest();
+xmlhttp.open("GET", "cd_catalog.xml", false);
+xmlhttp.send();
+xmlDoc = xmlhttp.responseXML; 
+x = xmlDoc.getElementsByTagName("CD");
+
+
+selectlist = "<form action=''><select name='customers' onchange='showCustomer(this.value)'>"
+selectlist+= "<option value='-1'>Select a customer:</option>"
+for(a=0; a <x.length; a++){
+	selectlist+="<option value='" + a + "'>" 
+    + x[a].getElementsByTagName("ARTIST")[0].childNodes[0].nodeValue + "</option>";
+}
+selectlist+= "</select></form>";
+document.getElementById("list").innerHTML = selectlist;
+}
+
+function showCustomer(i) {
+	if(i == -1){
+    	document.getElementById("info").innerHTML = "";
+        }
+else{
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            myFunction(this, i);
+        }
+    };
+    xmlhttp.open("GET", "cd_catalog.xml", true);
+    xmlhttp.send();
+}
+}
+function myFunction(xml, i) {
+    var xmlDoc = xml.responseXML; 
+    x = xmlDoc.getElementsByTagName("CD");
+   	 document.getElementById("info").innerHTML =
+    "Artist: " +
+   	x[i].getElementsByTagName("ARTIST")[0].childNodes[0].nodeValue +
+   	"<br>Title: " +
+   	x[i].getElementsByTagName("TITLE")[0].childNodes[0].nodeValue +
+   	"<br>Year: " + x[i].getElementsByTagName("YEAR")[0].childNodes[0].nodeValue;
+   		 
+    
+}
+</script>
+
+</body>
+</html>
