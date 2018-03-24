@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>Amateur text to hyperlink converter</h1>
+<p>Does not check validity well</p>
+<p>Input links below</p>
+<textarea id="userInput"rows="4" cols="100">Enter Text Here</textarea>
+<br>
+<button onclick="textToLink()">Convert</button>
+<p id="output"></p>
+<script>
+    function tex(text)
+    {
+    var exp = /(((http|ftp|https):\/\/)?([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?)/ig;
+    ///(((http|ftp|https):\/\/)?([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?)/ig;
+    //var exp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+    if(exp.test(text)){
+      return text.replace(exp,"<a href='$1'>$1</a>"); }
+    else{
+      return "";}
+    }
+    
+
+function textToLink(){
+	var output = "";
+	var input =document.getElementById("userInput").value;
+	var inputArray = input.split(/[\n\r\s]/);
+	inputArray.forEach(function(entry){
+    var link = tex(entry);
+    if(link != ""){
+    output += link + '<br>';}});
+	
+    console.log(output);
+	document.getElementById("output").innerHTML = output;}
+
+    
+</script>
+</body>
+</html>
+
